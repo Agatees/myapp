@@ -1,7 +1,7 @@
 # Title              : Service Management system
 # Author             : Agateeswaran K
 # Created on         : 07/02/2023
-# Last Modified Date : 03/07/2023
+# Last Modified Date : 08/07/2023
 # Reviewed by        : Silpa M
 # Reviewed on        : 20/02/2023
 
@@ -11,7 +11,7 @@ from serviceitems import Service
 import datetime
 from user import User
 import re
-# from DB_connection import connection, global_cursor
+from DB_connection import connection, global_cursor, query_execute
 
 
 class Payment:
@@ -93,19 +93,32 @@ class Customer(Payment):
     __service_cost = Service().give_service_price()
 
     @classmethod
-    def print_service_details(cls):
-        total = sum(Customer.__service_cost)
-        for i in range(len(Customer.__services)):
-            print(i + 1, ".", Customer.__services[i], "\t", "Rs", Customer.__service_cost[i])
-        print("\nYour total service charge is \tRs", total)
+    def print_service_details(cls, __customer_id):
+        query = "Select sum(price) from service where cus_id = %s;"
+        values = (__customer_id,)
+        result = query_execute(3, query, values)
+        # print(result)
+        total = result[0]
+        # print(total)
+        query = "Select service_name, price from service where cus_id = %s;"
+        values = (__customer_id,)
+        result = query_execute(4, query, values)
+        print("\n   Service \t\t\t Price")
+        i = 0
+        for row in result:
+            list1 = row
+            print(list1[0], "\t", list1[1])
+        print("\nYour total service charge is  Rs", total)
+
 
     @staticmethod
-    def print_details(name):
+    def print_details(name,customer_id):
         print("_" * 100, "\n\t\t\t\t\t\t\t\t\t", "> Services done <")
         print("_" * 100)
+        print("\nYour last Service details are as follows\n")
         print("Name: ", name, "\n")
         x = datetime.datetime.now()
         print("Date: ", x.strftime("%c"))
         print("")
         print("_" * 40, "\n")
-        Customer.print_service_details()
+        Customer.print_service_details(customer_id)

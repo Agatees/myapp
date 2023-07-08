@@ -1,5 +1,5 @@
-import pwinput
+from pwinput import pwinput
 
-password = pwinput.pwinput(mask='*')
-
-print(password)
+list = [(decimal('10000'),)]
+list1 = list[0]
+print(list1[0])

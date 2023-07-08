@@ -1,7 +1,7 @@
 # Title              : Service Management system
 # Author             : Agateeswaran K
 # Created on         : 07/02/2023
-# Last Modified Date : 07/07/2023
+# Last Modified Date : 08/07/2023
 # Reviewed by        : Silpa M
 # Reviewed on        : 20/02/2023
 
@@ -43,12 +43,11 @@ class Home:
             User.update_user_details(customer_id)
             Home.dashboard(customer_id)
         elif user_choice == 3:
-            # Service.rise_service_request()
-            Service.rise_request(customer_id)
+            Service.rise_service_request(customer_id)
+            # Service.rise_request(customer_id)
             Home.dashboard(customer_id)
         elif user_choice == 4:
-            print("_" * 100, "\nYour last Service details are")
-            Customer().print_details(name)
+            Customer().print_details(name, customer_id)
             Home.dashboard(customer_id)
         elif user_choice == 5:
             Payment.payment_methods()

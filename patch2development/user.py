@@ -1,7 +1,7 @@
 # Title              : Service Management system
 # Author             : Agateeswaran K
 # Created on         : 07/02/2023
-# Last Modified Date : 03/07/2023
+# Last Modified Date : 08/07/2023
 # Reviewed by        : Silpa M
 # Reviewed on        : 20/02/2023
 
@@ -10,6 +10,7 @@ import re
 from DB_connection import global_cursor, query_execute
 from datetime import date, datetime
 import hashlib
+# from pwinput import pwinput
 
 
 class User:
@@ -204,8 +205,8 @@ class User:
         if global_cursor is None:
             raise Exception("Cursor not initialized. Call create_cursor() first.")
         global user_choice, __username, __password, __email_id, __phone, __customer_id
-        print("_" * 100, "\n\t\t\t\t\t\t\t\t\t- > Sign-in < -"), \
-            print("_" * 100, "\n")
+        print("_" * 100, "\n\t\t\t\t\t\t\t\t\t- > Sign-in < -")
+        print("_" * 100, "\n")
         flag = True
         prompt = ("\n\t\t\t\t\tError!, invalid credentials\nWant retry to signing-in ? or "
                   "exit the"

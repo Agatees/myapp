@@ -1,7 +1,7 @@
 # Title              : Service Management system
 # Author             : Agateeswaran K
 # Created on         : 07/02/2023
-# Last Modified Date : 27/06/2023
+# Last Modified Date : 08/07/2023
 # Reviewed by        : Silpa M
 # Reviewed on        : 20/02/2023
 
@@ -30,3 +30,8 @@ def query_execute(case, query, values):
     elif case == 3:
         result = global_cursor.fetchone()
         return result
+    # for select multiple rows
+    elif case == 4:
+        result = global_cursor.fetchall()
+        return result
+

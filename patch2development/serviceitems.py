@@ -1,7 +1,7 @@
 # Title              : Service Management system
 # Author             : Agateeswaran K
 # Created on         : 07/02/2023
-# Last Modified Date : 03/07/2023
+# Last Modified Date : 08/07/2023
 # Reviewed by        : Silpa M
 # Reviewed on        : 20/02/2023
 
@@ -12,40 +12,46 @@ from datetime import date, datetime
 
 
 class Service:
-    __service_price = [1000]
-    __service = ["Nominal service Charges"]
+    __service_price = 1000
+    __service = "Nominal service Charges"
 
     @classmethod
-    def add_service(cls):
+    def add_service(cls, __customer_id, timestamp):
+        global __service, __service_price
         prompt = (
             "Enter the service you need...\n1.Hardware Service\tRs 5000\n2.Software Service\tRs 1500\n3.General "
             "Service\tRs 3000\n")
         valid_choice = [1, 2, 3]
         user_choice = User.get_user_choice(prompt, valid_choice)
         if user_choice == 1:
-            Service.__service.append("Hardware Service")
-            Service.__service_price.append(5000)
+            __service = 'Hardware Service'
+            __service_price = 5000
         elif user_choice == 2:
-            Service.__service.append("Software Service")
-            Service.__service_price.append(1500)
+            __service = "Software Service"
+            __service_price = 1500
         elif user_choice == 3:
-            Service.__service.append("General Service")
-            Service.__service_price.append(3000)
+            __service = "General Service"
+            __service_price = 3000
+        query = "insert into service values (%s, %s, %s, %s);"
+        values = (__customer_id, __service, __service_price, timestamp)
+        query_execute(1, query, values)
 
     @staticmethod
-    def rise_service_request():
-        print("_" * 100)
-        print("\t\t\t\t\t\t\t\t\t- > Service initiation < -")
+    def rise_service_request(__customer_id):
+        print("_" * 100, "\n\t\t\t\t\t\t\t\t\t- > Service initiation < -")
         print("_" * 100, "\n")
-        # print("_" * 100)
-        Service.add_service()
+        timestamp = Service.get_timestamp(2)
+        query = "insert into service values (%s,'Nominal Service',1000,%s);"
+        values = (__customer_id, timestamp)
+        query_execute(1, query, values)
+        Service.add_service(__customer_id, timestamp)
         valid_choice = [1, 2]
         prompt = "Want to add another service \n 1.Yes or 2.No\n"
         while True:
             user_choice = User.get_user_choice(prompt, valid_choice)
             if user_choice == 1:
                 print("\n")
-                Service.add_service()
+                Service.add_service(__customer_id, timestamp)
             elif user_choice == 2:
                 break
 
@@ -164,7 +170,7 @@ class Service:
                 print("\t\t", value[i])
         prompt = "\nAre you available in this address with the device\n\t1.Yes\t\t2.No\n"
         valid_choices = [1, 2]
-        user_choice = User.get_user_choice(prompt,valid_choices)
+        user_choice = User.get_user_choice(prompt, valid_choices)
         if user_choice == 1:
             exit()
         else:
