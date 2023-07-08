@@ -34,4 +34,3 @@ def query_execute(case, query, values):
     elif case == 4:
         result = global_cursor.fetchall()
         return result
-
