@@ -11,7 +11,7 @@ from serviceitems import Service
 import datetime
 from user import User
 import re
-from DB_connection import connection, global_cursor, query_execute
+from DB_connection import query_execute
 
 
 class Payment:
